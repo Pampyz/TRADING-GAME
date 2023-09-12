@@ -46,28 +46,33 @@ The MDP (Markov decision process) is a central object in control theory, game th
 When policy wants to be found: RL. When state transisions are known: search. Model-based. on-policy & off-policy
 
 <h5>State transition function:</h5>
-$p(s_{t+1}|s_{t}, a{t})$
-<h5>Policy: </h5>
-$p(a_{t}|s_{t} = \pi(a_{t})$
 
-Reward:
+$p(s_{t+1}|s_{t}, a_{t})$
+<h5>Policy: </h5>
+
+$p(a_{t}|s_{t}) = \pi(s_{t})$
+
+<h5>Reward:</h5>
+
 $r(s_{t+1}, s_{t})$
 
 <h4>POMDP</h4>
 Partially observable MDP:
 Identical to a MDP exept that the agent only has access to an observation of the state - not necessarily the full state of the environment.
 
-State transition function:
-$p(s_{t+1}|s_{t}, a{t})$
+<h5>State transition function & reward function:</h5>
 
-Observation function:
-$p(o_{t}|s_{t})$
+$p(s_{t+1}|s_{t}, a_{t})$,
 
-Policy:
+$r(s_{t+1}, s_{t})$
+<h5>Observation function: </h5>
+
+$p(o_{t}|s_{t}) = \omega(s_{t})$
+
+<h5>Policy: </h5>
+
 $p(a_{t}|o_{t}) = \pi(o_{t})$
 
-Reward:
-$r(s_{t+1}, s_{t})$
 
 <h4>DPOMPD</h4>
 In a decentralized POMDP the POMDP is generalized in that there is a multitude of agents, . In an analogous way there is a DMDP (where all agents have full observation of the state)
