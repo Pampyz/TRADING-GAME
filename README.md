@@ -7,17 +7,23 @@ Multi-player games of different kinds are generally characterized by imperfect i
 
 <h1> Practical setting </h1>
 
-The full game consists of <i> agents</i>, each possessing <i>assets</i>, a <i>utility function</i>, and <i>time</i>. There also exist <i> marketplaces </i> where agents can trade assets.  Each actor can at every step take one of several <i>actions</i>, determined by the current state and the specifics of the game at hand.
+The full game consists of <i> agents</i>, each possessing <i>assets</i> and a <i>utility function</i>. There also exist <i> marketplaces </i> where agents can trade assets.  Each actor can at every step take one of several <i>actions</i>, determined by the current state and the specifics of the game at hand.
 
 In this brief explanation of the full game, every word in italics corresponds to a class in the implementation of the game. Also, the words actor & agent mean the same thing. Due to the complexity of the full game, many experiments are run on reduced variants of it.
 
 <h3> Agents </h3>
-Every agent possesses a certain quantity of assets, a utility function, and time. Time can be considered a special asset, it reduces every timestep until it reaches zero, then the agent dies. The goal for every agent is to find a policy that maximizes their own specific utility function. Some actors are 'dummys' and always act according to a specific policy (ex. randomly), without learning.
+Every agent possesses a certain quantity of assets and a utility function. The utility function evaluates how satisfied the agent is with its assets. Time can be considered a special asset, it reduces every timestep until it reaches zero, then the agent dies. Some actors are 'dummys' and always act according to a specific policy (ex. randomly), without learning. Most agents however, are driven to change and improve their policy to act in a way that maximizes their own specific utility function.
 
 <h3>Assets</h3>
-An typical asset has a global <i>stock</i> corresponding to the amount existing, a global <i>supply</i> corresponding to how much more of the asset is created (or destroyed) every time-step. The supply can be dependent on the actions of the actors.
+An typical asset has a global <i>stock</i> corresponding to the amount existing, a global <i>supply</i> corresponding to how much more of the asset is created (or destroyed) every time-step. The supply can be dependent on the actions of the actors, or fixed, depending on the experiment.
+
+An important asset is 'time' - usually starts as x steps and decreases.
 
 Some special assets are 'knowledge', giving.
+
+Contracts can also be formed - example a loan can be taken which will cause the contract to cause a negative rent payment every time-step.
+
+Other assets that can be defined
 
 In general, there are defined relations between assets, 
 Also there are graph relations between them -> relation
@@ -38,11 +44,13 @@ This leads naturally to an individual reward function
 In the full game the agents have 
 In some experiments they can barter (trade one asset for any other), in others theycan via a special'money', and in some they can also trade labor.
 
+The marketplace typically defines things such as net-worth, virtual opportunity, etc... -> the basis of inter-agent complexity in this game.
+
 The reduced game where all the utilities are the same and
 
 <h1> Theoretical background </h1>
 <h2>MDP</h2>
-The MDP (Markov decision process) is a general model of a process that develops over time based on input. It is central in control theory, game theory and reinforcement learning, amongst others. In an MDP, there is a single agent acting by selecting actions a in an environment manifested by the state s. The state updates after every time-step based on the previous state and action, after which the agent receives a reward. In general, the dynamics of a MDP are probabilistic and defined by the following equations:
+The MDP (Markov decision process) is a general model of a process that develops over time based on input. It is central in control theory, game theory and reinforcement learning, amongst other fields. In an MDP, there is a single agent acting by selecting actions a in an environment manifested by the state s. The state updates after every time-step based on the previous state and action, after which the agent receives a reward. In general, the dynamics of a MDP are probabilistic and defined by the following equations:
 <br>
 
 <h5>State transition function:</h5>
@@ -68,10 +76,12 @@ In reinforcement learning, the state & reward dynamics are assumed to be fully u
 
 $max_{\pi \in \Pi} \mathbf{E}_{s_{i}, a_{i} \forall i}\sum_{t=0}^{t=\infty}r(s_{t+1}, s_{t})\gamma^{t}$
 
-where expectations are taken over the given
+over some space of potential policies $\Pi$, where expectations are taken over the distributions of the random variables $s_{t}$, $a_{t}$.
+
+Unlike many tasks in machine learning, there is no real overfitting issue. (elucidate.)
 
 <h2>POMDP</h2>
-Partially observable MDP - identical to an MDP exept that the agent only has access to an observation of the state. This observation is not necessarily the full state of the environment, and could be a partial observation or even a function of the state.
+A partially observable MDP is identical to an MDP exept that the agent only has access to an observation of the state. This observation is not necessarily the full state of the environment, and could be a partial observation or even an obfuscating function of the state. The extension is straightforward and given below:
 <br>
 <h5>State transition function:</h5>
 
@@ -91,7 +101,7 @@ $p(a_{t}|o_{t}) = \pi(o_{t})$
 <br>
 
 <h2>DPOMPD</h2>
-In a decentralized POMDP the POMDP is generalized in that there is a multitude of agents, each taking a separate decision based on their own observations. In an analogous way there is a DMDP (where all agents have full observation of the state). The state is updated on the joint decisions made by all actors, and the reward is 
+In a decentralized POMDP the POMDP is generalized in that there is a multitude of agents, each taking a separate decision based on their own observations. In an analogous way there is a DMDP (where all agents have full observation of the state). The state is updated on the joint decisions made by all actors, and the reward is also joint. This means that all actors will be attempting to cooperate, meaning that this is a model suitable for swarm behaviour & distributed computation. The corresponding definitions follow (with n actors):
 <br>
 
 <h5>State transition function:</h5>
@@ -100,26 +110,25 @@ $p(s_{t+1}|s_{t}, a^{0}_{t},...,a^{n}_{t})$
 
 <h5>Reward: </h5>
 
-$r^{i}(s_{t+1}, s_{t})$
+$r(s_{t+1}, s_{t})$
 
-<h5>Observation function: </h5>
+<h5>Observation functions: </h5>
 
-$p(o_{t}|s_{t}) = \omega(s_{t})$
+$p(o^{i}_{t}|s_{t}) = \omega^{i}(s_{t})$
 
-<h5>Policy: </h5>
+<h5>Policies: </h5>
 
-$p(a_{t}|o_{t}) = \pi(o_{t})$
-<br><br>
-
+$p(a^{i}_{t}|o^{i}_{t}) = \pi^{i}(o_{t})$
+<br>
+where superscript i means "pertaining to agent i".
 
 <h2> TRADING-GAME </h2>
-The natural extension to the DPOMDP is the setting where all agents have different rewards functions. This setting is called a POSG - a partially observable stochastic game.  
+The natural extension to the DPOMDP is the setting where all agents have different rewards functions. This setting is called a POSG - a partially observable stochastic game. The different rewards mean that the agents can now work against & together with each other, 
 
-TRADING GAME is a special kind of POSG - where actors attempt 
-The state transition depends
-
+TRADING GAME is a special kind of POSG - where state dynamics, policies and rewards are motivated on the discussions above. In general, the market order introduced leads exclusively to cooperative . However, it is also interesting to note what hostile activities it can also enable. 
 
 Goal of MDP, ... is to maximize reward. All such processes also have in common that 
+
 <h1> Metrics </h1>
 One difference between for instance reinforcement learning & the trading game is that TG has no clear global metric on which to measure success. We make use of several different tricks to follow up on what's happening .
 
