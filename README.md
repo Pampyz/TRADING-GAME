@@ -43,8 +43,7 @@ The reduced game where all the utilities are the same and
 <h1> Theoretical background </h1>
 <h2>MDP</h2>
 The MDP (Markov decision process) is a general model of a process that develops over time based on input. It is central in control theory, game theory and reinforcement learning, amongst others. In an MDP, there is a single agent acting by selecting actions a in an environment manifested by the state s. The state updates after every time-step based on the previous state and action, after which the agent receives a reward. In general, the dynamics of a MDP are probabilistic and defined by the following equations:
-<br><br>
-
+<br>
 
 <h5>State transition function:</h5>
 
@@ -73,7 +72,7 @@ where expectations are taken over the given
 
 <h2>POMDP</h2>
 Partially observable MDP - identical to an MDP exept that the agent only has access to an observation of the state. This observation is not necessarily the full state of the environment, and could be a partial observation or even a function of the state.
-<br><br>
+<br>
 <h5>State transition function:</h5>
 
 $p(s_{t+1}|s_{t}, a_{t})$,
@@ -89,11 +88,10 @@ $p(o_{t}|s_{t}) = \omega(s_{t})$
 <h5>Policy: </h5>
 
 $p(a_{t}|o_{t}) = \pi(o_{t})$
-<br><br>
+<br>
 
 <h2>DPOMPD</h2>
 In a decentralized POMDP the POMDP is generalized in that there is a multitude of agents, each taking a separate decision based on their own observations. In an analogous way there is a DMDP (where all agents have full observation of the state). The state is updated on the joint decisions made by all actors, and the reward is 
-
 <br>
 
 <h5>State transition function:</h5>
