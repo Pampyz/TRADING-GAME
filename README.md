@@ -17,14 +17,19 @@ Every agent possesses a certain quantity of assets and a utility function. The u
 <h3>Assets</h3>
 An typical asset has a global <i>stock</i> corresponding to the amount existing, a global <i>supply</i> corresponding to how much more of the asset is created (or destroyed) every time-step. The supply can be dependent on the actions of the actors, or fixed, depending on the experiment. Assets are varied and in general exist in a few classes of particular significance.
 
+<h5>Time </h5>
 A very important asset is 'time' - given to each agent at the start of their entry in the game. It usually starts at a fixed value and decreases with some amount every time-step. When it reaches zero the agent typically "dies" and leaves the game.
 
+<h5>Consumption assets </h5>
 Another common asset class can be described as the class of consumption assets. These typically decay every time-step, but do not lead to agent death when the agent possesses a zero quantity of them.
 
-An important special class of assets can be called capital, giving the possibility to combine assets to produce new ones. These lack utility of their own, however they inherit this from the potential of their usage The exact way in which assets can be combined in order to create new ones are determined by the relations on them.
+<h5>Capital assets</h5>
+An important special class of assets can be called capital, giving the possibility to combine assets to produce new ones. This capital can be in the form of knowledge or . It can sometimes be traded on a marketplace or 'taught'. These lack utility of their own, however they inherit this from the potential of their usage The exact way in which assets can be combined in order to create new ones are determined by the relations on them.
 
+<h5>Investment assets </h5>
 Other assets include investment assets that very rarely are consumed. A special such asset is called 'money'.
 
+<h5>Financial assets</h5>
 The assets in the class of 'economic contracts' can also be formed, including loans, promises of labor (consuming others' time - employmnt), options & other derivatives. 
 
 In general, it's important to note that assets have no value except for that which is defined by the utilities of every agent. This is the main evaluation of success that every agent uses, and it's important to separate this from other emergent & implicit notions of value. The relations define an implicit 'valuation' of every asset for instance in terms of the amount of time it would require to produce it. Also, the marketplaces define another evaluation of assets in terms of 
