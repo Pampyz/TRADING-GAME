@@ -1,0 +1,10 @@
+experiment:
+  name:
+    simple-verification
+  agents:
+    [2 random]
+  assets:
+    [4 inflationary]
+  n_rounds:
+    10
+  
