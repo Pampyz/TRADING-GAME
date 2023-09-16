@@ -23,31 +23,37 @@ A very important asset is 'time' - given to each agent at the start of their ent
 <h5>Consumption assets </h5>
 Another common asset class can be described as the class of consumption assets. These typically decay every time-step, but do not lead to agent death when the agent possesses a zero quantity of them.
 
-<h5>Capital assets</h5>
-An important special class of assets can be called capital, giving the possibility to combine assets to produce new ones. This capital can be in the form of knowledge or . It can sometimes be traded on a marketplace or 'taught'. These lack utility of their own, however they inherit this from the potential of their usage The exact way in which assets can be combined in order to create new ones are determined by the relations on them.
+<h5>Capital assets</h5> An important special class of assets can be called capital, giving the possibility to combine assets to produce new ones. This capital can be in the form of knowledge or . It can sometimes be traded on a marketplace or 'taught'. These lack utility of their own, however they inherit this from the potential of their usage The exact way in which assets can be combined in order to create new ones are determined by the relations on them.
 
 <h5>Investment assets </h5>
-Other assets include investment assets that very rarely are consumed. A special such asset is called 'money'.
+Other assets include investment assets that very rarely are consumed. A special such asset is called 'money'. They might have little to no utility except as a medium of exchange.
 
 <h5>Financial assets</h5>
-The assets in the class of 'economic contracts' can also be formed, including loans, promises of labor (consuming others' time - employmnt), options & other derivatives. 
+The assets in the class of 'economic contracts' can also be formed, including loans, promises of labor (employment), options & other derivatives. 
 
-In general, it's important to note that assets have no value except for that which is defined by the utilities of every agent. This is the main evaluation of success that every agent uses, and it's important to separate this from other emergent & implicit notions of value. The relations define an implicit 'valuation' of every asset for instance in terms of the amount of time it would require to produce it. Also, the marketplaces define another evaluation of assets in terms of 
+<h5>Other assets</h5>
+There are many other types of assets conceivable. One special class of capital assets are weapons, possessing special relations that does not only affect the assets of the actor possessing it, but also other actors. However, the focus of this investigation is not to attempt to model the entire world, rather just the particular setting where agents trade. In order to do this it is sometimes necessary with a context where the agents can also independently act in a simulated world (as manifested in the assets, relations between them, and actions that can be taken). What is special in general about a trade is that although both 
+
+In general, it's important to note that assets have no value except for that which is defined by the utilities of every agent. This is the main evaluation of success that every agent uses, and it's important to separate this from other emergent & implicit notions of value. The relations define an implicit 'valuation' of every asset for instance in terms of the amount of time it would require to produce it. Also, the marketplaces define another evaluation of assets in terms of the market price of them (which introduces a 'global & virtual' evaluation of all assets).
 
 <h3>Relations</h3>
-A relation defines how assets can be combined. This in turn is a determinant of the state transition function. For example, a relation can...
+A relation defines how assets can be combined. For instance there might be an asset which can be made by combining five units of wood with ten units of time (a table). Assume there to be n assets and the quantity of each asset determined by a tuple where the amount at index i is equal to the amount in possession. In that case, a relation can be written as 
 
-In general, there are defined relations between assets, 
-Also there are graph relations between them -> relation
+$ R: (s_{r_{1}}, s_{r_{2}}, ..., s_{r_{n}}) \to (a_{r_{1}}, a_{r_{2}}, ..., a_{r_{n}}) $ 
+
+where the left hand side contains the quantities to be subtracted by the relation and the right hand side the quantities to be added. The set of assets and relations between them defines a graph - which can be loosely be interpreted as the part of the state transition which pertains to the 'natural world'. The other part is the one dependent on the trades made between the agents on the available marketplaces. What is also special about relations is that they are not always fully known - a part of the activities of any agent can be to 
 
 <h3>Policies</h3>
-Every agent has a policy which determines what actions it will take given a history of observations and . Every agent is considered rational - meaning that it will always try to maximize its own utility function in the long run.
+Every agent has a policy which determines what actions it will take given a history of observations and actions. Every agent is considered rational - meaning that it will always try to maximize its own utility function in the long run. Several types of 'stupid' policies are considered, for instance the random actor and the non-trading actor (will never trade). These are mainly used for reference, 
 
 <h3>Utilities</h3>
+Difficult. 
 Agents have utilities 
 The utilities are assumed to satisfy
 U(alternative 1)
 This leads naturally to an individual reward function 
+
+Utility of a relation: U(..., )
 
 <h3>Marketplaces</h3>
 In the full game the agents have access to a range of marketplaces. In each marketplace they are
@@ -129,7 +135,6 @@ $p(o^{i}_{t}|s_{t}) = \omega^{i}(s_{t})$
 
 $p(a^{i}_{t}|o^{i}_{t}) = \pi^{i}(o_{t})$
 
-<br>
 where superscript i means "pertaining to agent i".
 
 <h2> TRADING-GAME </h2>
@@ -143,26 +148,34 @@ A big difference is also the difference in defining a reward & utility function.
 
 Source of complexity in this game: the relations which might be unknown, the utility, the policies
 
-<h1> Metrics </h1>
-One difference between for instance reinforcement learning & the trading game is that TG has no clear global metric on which to measure success. We make use of several different tricks to follow up on what's happening .
+<h1> Metrics & visualization</h1>
+Coming soon!
 
 <h1> Experiments / Example games </h1>
 
-Zero-sum trading.
-In this game all the assets have fixed 
+Zero-sum trading. In this game all the assets are fixed and there exist no relations. Only trading can be used. 
+<br>
+Infinite v.s. finite lifetimes.
+<br>
+Barter marketplace v.s. money marketplace
 
-Subcategory: Fish catching
+Subcategory - Fish catching
+<br>
+Subcategory - Emergent modelling
 
-Emergency of marketplaces
-Investigate how marketplaces of barter -> marketplace of money. Especially 
-Marketplace of 'weak' money -> marketplace of hard money
 
+Emergence of marketplaces
+<br>
+Investigate how marketplaces of barter leads to marketplace of money. 
+Investigate how marketplace of 'weak' money leads to marketplace of hard money
+<br>
 Healthy economy scenario?
 
-Fiat blackhole scenario?
-
-Violence? assets with inter-actor relations?
-
+Other ideas:
+Fiat blackhole scenario? (privileged actors)
+<br>
+Violence & assets with inter-actor relations?
+<br>
 Economy with some asymptotic actors (only utility of money is interesting) and some 'normal actors' (which would like different assets all the time)
 
-Final disclaimer & outro (essentially a model of capitalism, what happens with )
+Final disclaimer & outro (essentially a model of capitalism, what happens with life & children etc, note that utility is social and depends on communication, wealth accumulates & is finite etc.)
