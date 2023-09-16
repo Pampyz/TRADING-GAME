@@ -2,9 +2,13 @@ experiment:
   name:
     simple-verification
   agents:
-    [2 random]
+    [5 random]
   assets:
     [4 inflationary]
-  n_rounds:
+  marketplaces:
+    [1 barter]
+  n_games:
     10
+  game_length:
+    10000
   
