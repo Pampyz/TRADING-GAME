@@ -1,7 +1,7 @@
 # TRADING-GAME
 The TRADING-GAME investigates different questions posed in the context of a special multiplayer game. The game can be described as the "game of economics', where actors try to improve their own standing in an economic environment. The game is modelled on an austrian interpretation of value & economics, where every actor is assumed to possess their own specific valuation of assets. This valuation is considered subjective and not comparable between actors.
 
-We also attempt to use this framework to model economic time-series using certain emergent features of the inter-agent communication which is enabled in the game. Another way of formulating this is that we are using this framework as an inductive bias on the underlying structure of the time-series. Specifically, we attempt to model exchange rates of different kinds as the result of a multi-player process where each player acts on a market in a way that attempts to maximize their own utilities. This model is then trained end-to-end.
+We also attempt to use this framework to model economic time-series using certain emergent features of the inter-agent communication which is enabled in the game. Another way of formulating this is that we are using this framework as an inductive bias on the underlying structure of the time-series. Specifically, we attempt to model exchange rates & market-related metrics of different kinds as the result of a multi-player process where each player acts on a market in a way that attempts to maximize their own utilities. This model is then trained end-to-end.
 
 Multi-player games of different kinds are generally characterized by imperfect information (meaning that no single player has access to all knowledge) and hence leads to the importance of various forms of communication. Furthermore, in this case all players have a different utility - making communication in various ways important not just to probe the state, but also the utilities of other agents in order to make good decisions.
 
@@ -9,21 +9,24 @@ Multi-player games of different kinds are generally characterized by imperfect i
 
 The full game consists of <i> agents</i>, each possessing <i>assets</i> and a <i>utility function</i>. There also exist <i> marketplaces </i> where agents can trade assets.  Each actor can at every step take one of several <i>actions</i>, determined by the current state and the specifics of the game at hand. Between the assets there exist <i>relations</i>, signifying how they can be converted into each other.
 
-In this brief explanation of the full game, every word in italics corresponds to a class in the implementation of the game. Also, the words actor & agent mean the same thing. Due to the complexity of the full game, many experiments are run on reduced variants of it.
+Implementation-wise, every word in italics corresponds to a particular class. Also, sometimes the words actor & agent are mixed, they mean the same thing. Due to the complexity of the full game, many experiments are run on reduced variants of it.
 
 <h3> Agents </h3>
-Every agent possesses a certain quantity of assets and a utility function. The utility function evaluates how satisfied the agent is with its assets. Time can be considered a special asset, it reduces every timestep until it reaches zero, then the agent dies. Some actors are 'dummys' and always act according to a specific policy (ex. randomly), without learning. Most agents however, are driven to change and improve their policy to act in a way that maximizes their own specific utility function.
+Every agent possesses a certain quantity of assets and a utility function. The utility function evaluates how satisfied the agent is with its assets. Time can be considered a special asset which reduces every timestep until it reaches zero. At this point the agent dies and leaves the game. Each agent also possess a policy, which dictates what decisions they will make at every turn given their observations of past and present events. Some actors are 'dummys' and always act according to a specific policy (ex. randomly), without learning. Most agents however, are driven to change continously and improve their policy to act in a way that maximizes their own specific utility function.
 
 <h3>Assets</h3>
 An typical asset has a global stock corresponding to the amount existing, and a global supply corresponding to how much more of the asset is created (or destroyed) every time-step. In general, this stock & supply is not something which is pre-defined, but is defined via the potential actions & relations that are available to the actors. Only in simplified versions of the game are they fixed. The types of assets are varied and in general exist in a few classes of particular significance.
 
+<details>
+<summary> List of special assets </summary>
 <h5>Time </h5>
 A very important asset is 'time' - given to each agent at the start of their entry in the game. It usually starts at a fixed value and decreases with some amount every time-step. When it reaches zero the agent typically "dies" and leaves the game. 
 
 <h5>Consumption assets </h5>
-Another common asset class can be described as the class of consumption assets. These typically decay every time-step, but do not lead to agent death when the agent possesses a zero quantity of them.
+Another common asset class can be described as the class of consumption assets. These typically decay every time-step, but do not lead to agent death when the agent possesses a zero quantity of them. In some experiments they could, for instance in the event that the consumption asset represents food.
 
-<h5>Capital assets</h5> An important special class of assets can be called capital, giving the possibility to combine assets to produce new ones. This capital can be in the form of knowledge or 'tangible' assets. The difference is that tangible assets can be traded on a marketplace while knowledge assets has to be 'taught'. In the trading of a tangible asset, the one selling it loses the asset, whereas a knowledge asset is not consumed during the teaching. Knowledge & capital assets typically lack utility of their own (although they possess market value), however they inherit this from the potential of their usage. The exact way in which consumptions assets can be combined in order to create new ones, either together with or without capital assets, are determined by the relations on them.
+<h5>Capital assets</h5> 
+A class of assets can be called capital, giving the possibility to combine assets to produce new ones. This capital can be in the form of knowledge or 'tangible' assets. The difference is that tangible assets can be traded on a marketplace while knowledge assets has to be 'taught'. In the trading of a tangible asset, the one selling it loses the asset, whereas a knowledge asset is not consumed during the teaching. Knowledge & capital assets typically lack utility of their own (although they possess market value, and in some cases they have 'autoutility'), however they inherit this from the potential of their usage. The exact way in which consumptions assets can be combined in order to create new ones, either together with or without capital assets, are determined by the relations on them. 
 
 <h5>Investment assets </h5>
 Other assets include investment assets that very rarely are consumed. A special such asset is called 'money'. They typically have little to no utility except as a medium of exchange.
@@ -32,30 +35,35 @@ Other assets include investment assets that very rarely are consumed. A special 
 The assets in the class of 'economic contracts' can also be formed, including loans, promises of labor (employment), options & other derivatives. 
 
 <h5>Other assets</h5>
-There are many other types of assets conceivable. One special class of capital assets are weapons, possessing special relations that does not only affect the assets of the actor possessing it, but also other actors. However, the focus of this investigation is not to attempt to model the entire world, rather just the particular setting where agents trade. In order to do this it is to a certain extent necessary to introduce a context where the agents can independently act in a simulated world (as manifested in the assets, relations between them, and actions that can be taken). What is special in general about a trade is that although both parties have their own  
+There are many other types of assets conceivable. One special class of capital assets are weapons, possessing special relations that does not only affect the assets of the actor possessing it, but also other actors. This is just another example. However, the focus of this investigation is not to attempt to model the entire world, rather just the particular setting where agents trade. In order to do this it is to a certain extent necessary to introduce a context where the agents can independently act in a simulated world - as manifested in the assets, relations between them, and actions that can be taken.   
 <br>
+</details>
 
 In general, it's important to note that assets have no value except for that which is defined by the utilities of every agent. This is the main evaluation of success that every agent uses, and it's important to separate this from other emergent & implicit notions of value. The relations define an implicit 'valuation' of every asset for instance in terms of the amount of time it would require to produce it. Also, the marketplaces define another evaluation of assets in terms of the market price of them (which introduces a 'global & virtual' evaluation of all assets).
 
 <h3>Relations</h3>
-A relation defines how assets can be combined. For instance there might be an asset which can be made by combining five units of wood with ten units of time (a table). Assume there to be n assets and the quantity of each asset determined by a tuple where the amount at index i is equal to the amount in possession. In that case, a relation can be written as 
+A relation defines how assets can be combined. For instance there might be an asset which can be made by combining five units of wood with ten units of time (a piece of furniture). Assume there to be n assets and the quantity of each asset determined by a tuple where the amount at index i is equal to the amount in possession. In that case, a relation can be written as 
 
 $ R: (s_{r_{1}}, s_{r_{2}}, ..., s_{r_{n}}) \to (a_{r_{1}}, a_{r_{2}}, ..., a_{r_{n}}) $ 
 
-where the left hand side contains the quantities to be subtracted by the relation and the right hand side the quantities to be added. The set of assets and relations between them defines a graph - which can be loosely be interpreted as the part of the state transition which pertains to the 'natural world'. The other part is the one dependent on the trades made between the agents on the available marketplaces. What is also special about relations is that they are not always fully known - a part of the activities of any agent can be to 
+where the left hand side contains the quantities to be subtracted by the relation and the right hand side the quantities to be added. The set of assets and relations between them defines a graph - which can be be interpreted as the part of the state transition function which pertains to the 'natural world'. The other part is the one which is a consequence of the trades made between the agents on the available marketplaces. What is also special about relations is that they are not always fully known - a part of the activities of any agent can be to investigate in order to explore new relations between assets & new actions to choose.
 
-Implicitly define all assets via relations?
+In general, the relations define the actions that are possible to take on every time-step concerning the assets. They explicitly & implicitly define all the actions that are available to take on every given asset.
 
 <h3>Policies</h3>
-Every agent has a policy which determines what actions it will take given a history of observations and actions. Every agent is considered rational - meaning that it will always try to maximize its own utility function in the long run. Several types of 'stupid' policies are considered, for instance the random actor and the non-trading actor (will never trade). These are mainly used for reference, 
+Every agent has a policy which determines what actions it will take given a history of observations and actions. Every agent is considered rational - meaning that it will always try to maximize its own utility function in the long run. Several types of 'stupid' policies are considered, for instance the random actor and the non-trading actor (will never trade). These are mainly used for reference and benchmarking. In general, most 'intelligent' policies are built on a reinforcement learning algorithm trained on some special version of this game.
 
 <h3>Utilities</h3>
+Agents have utilities that define the rewards that they
+Law of diminishing marginal return
+
 Difficult. 
 Agents have utilities 
 The utilities are assumed to satisfy
 U(alternative 1)
 This leads naturally to an individual reward function 
 
+Types of utilities considered:
 Utility of a relation: U(..., )
 
 <h3>Marketplaces</h3>
@@ -154,6 +162,8 @@ The trading game is also specific in that the game is assumes to possess a 'natu
 
 The trading game is immensely complex and can be varied in many ways. The sources of complexity is mainly the number & complexity (in terms of the policies) of the agents, the complexity of their utilities, and the complexity & number of relations and assets. As mentioned before, the game can be extended with violent assets, financial assets, new channels for communication extending beyond marketplaces, etc.
 
+Emergent processes in physics, societal decisions, economy etc.
+
 <h1> Metrics & visualization</h1>
 Coming soon!
 
@@ -185,3 +195,5 @@ Violence & assets with inter-actor relations?
 Economy with some asymptotic actors (only utility of money is interesting) and some 'normal actors' (which would like different assets all the time)
 
 Final disclaimer & outro (essentially a model of capitalism, what happens with life & children etc, note that utility is social and depends on communication, wealth accumulates & is finite etc.) Real life is infinite-horizon, inheritance, etc. Also relations are dependent on other actors - making no decisions truly independent. 
+
+What is special in general about a trade is that although both parties have their own utilities which are completely independent, both 
