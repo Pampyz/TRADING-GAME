@@ -156,20 +156,28 @@ TRADING GAME is a special kind of POSG - where state dynamics, policies and rewa
 
 The TRADING-GAME setting differs from ordinary reinforcement learning in a few ways. The goal of an ordinary MDP is typically to maximize the reward for a single actor. This is a global measure of success for the entire process. However, in the trading game, there is no such global measure. Each actor tries to maximize their own utility, but these are assumed not to be comparable between agents.
 
+(Not just a maximization task)
+
 Nash equilibria
 
 The trading game is also specific in that the game is assumes to possess a 'natural' reward function, being derived from a utility function defined on the possession of a collection of assets.
 
 The trading game is immensely complex and can be varied in many ways. The sources of complexity is mainly the number & complexity (in terms of the policies) of the agents, the complexity of their utilities, and the complexity & number of relations and assets. As mentioned before, the game can be extended with violent assets, financial assets, new channels for communication extending beyond marketplaces, etc.
 
+Robinson crusoe - extreme case
+Only trading - other extreme case
+The combination we investigate has a high focus on trading. Otherwise there would be more competition about scarce resources. (might actually already be like that...)
+Also, there are societal factors as well (utility is very dependent on 'other' communication channels.)
+
 Emergent processes in physics, societal decisions, economy etc.
 
-<h1> Metrics & visualization</h1>
-Coming soon!
+
 
 <h1> Experiments / Example games </h1>
 
 Zero-sum trading. In this game all the assets are fixed and there exist no relations. Only trading can be used. 
+For random agents 2, 5, 50. 500, ...?
+For other
 <br>
 Infinite v.s. finite lifetimes.
 <br>
@@ -197,3 +205,6 @@ Economy with some asymptotic actors (only utility of money is interesting) and s
 Final disclaimer & outro (essentially a model of capitalism, what happens with life & children etc, note that utility is social and depends on communication, wealth accumulates & is finite etc.) Real life is infinite-horizon, inheritance, etc. Also relations are dependent on other actors - making no decisions truly independent. 
 
 What is special in general about a trade is that although both parties have their own utilities which are completely independent, both 
+
+<h1> Metrics & visualization</h1>
+Coming soon!
